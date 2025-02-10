@@ -24,6 +24,8 @@
   <xacro:arg name="add_ros2_control_tag" default="false" />
   <xacro:arg name="hardware_interface_type" default="mock" />
   <xacro:arg name="hostname" default="10.0.0.3" />
+  <xacro:arg name="port" default="0" />
+  <xacro:arg name="certificate" default="" />
   <xacro:arg name="username" default="username" />
   <xacro:arg name="password" default="password" />
   <xacro:arg name="k_q_p" default="" />
@@ -41,7 +43,9 @@
       <xacro:spot_ros2_control interface_type="$(arg hardware_interface_type)" 
                                has_arm="$(arg arm)" 
                                hostname="$(arg hostname)" 
-                               username="$(arg username)" 
+                               port="$(arg port)"
+                               certificate="$(arg certificate)"
+                               username="$(arg username)"
                                password="$(arg password)" 
                                tf_prefix="$(arg tf_prefix)" 
                                k_q_p="$(arg k_q_p)" 

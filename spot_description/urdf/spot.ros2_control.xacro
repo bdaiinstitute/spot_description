@@ -61,7 +61,7 @@
 
     </xacro:macro>
 
-    <xacro:macro name="spot_ros2_control" params="interface_type has_arm hostname username password tf_prefix k_q_p k_qd_p">
+    <xacro:macro name="spot_ros2_control" params="interface_type has_arm hostname port certificate username password tf_prefix k_q_p k_qd_p">
         <!-- Currently implements a simple system interface that covers all joints of the robot.
         In the future, we could make different hardware interfaces for the body, arm, etc. -->
         <ros2_control name="SpotSystem" type="system">
@@ -74,6 +74,8 @@
             <xacro:if value="${interface_type == 'robot'}">
                 <plugin>spot_hardware_interface/SpotHardware</plugin>
                 <param name="hostname">$(optenv SPOT_IP ${hostname})</param>
+                <param name="port">$(optenv SPOT_PORT ${port})</param>
+                <param name="certificate">$(optenv SPOT_CERTIFICATE ${certificate})</param>
                 <param name="username">$(optenv BOSDYN_CLIENT_USERNAME ${username})</param>
                 <param name="password">$(optenv BOSDYN_CLIENT_PASSWORD ${password})</param>
                 <param name="k_q_p">${k_q_p}</param>
