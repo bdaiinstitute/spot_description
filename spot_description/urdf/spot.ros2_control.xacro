@@ -91,7 +91,8 @@
             <!-- parse the sting seperated input value into a list for easier operations. -->
             <xacro:property name="k_q_p_arg" value="${[float(i) for i in k_q_p.split()]}"/>
             <xacro:property name="k_qd_p_arg" value="${[float(i) for i in k_qd_p.split()]}"/>
-            <!-- default gain values provided by BD -->
+            <!-- default gain values provided by BD:
+            https://github.com/boston-dynamics/spot-cpp-sdk/blob/master/cpp/examples/joint_control/constants.hpp -->
             <xacro:property name="default_k_q_p" value="${[624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 1020.0, 255.0, 204.0, 102.0, 102.0, 102.0, 16.0]}"/>
             <xacro:property name="default_k_qd_p" value="${[5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 10.2, 15.3, 10.2, 2.04, 2.04, 2.04, 0.32]}"/>
             <!-- number of expected elements in the gain string depending on if the robot has an arm. -->
