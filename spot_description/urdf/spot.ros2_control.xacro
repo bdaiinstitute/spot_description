@@ -93,24 +93,24 @@
             <xacro:property name="k_qd_p_arg" value="${[float(i) for i in k_qd_p.split()]}"/>
             <!-- default gain values provided by BD:
             https://github.com/boston-dynamics/spot-cpp-sdk/blob/master/cpp/examples/joint_control/constants.hpp -->
-            <xacro:property name="default_k_q_p" value="${[624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 1020.0, 255.0, 204.0, 102.0, 102.0, 102.0, 16.0]}"/>
-            <xacro:property name="default_k_qd_p" value="${[5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 10.2, 15.3, 10.2, 2.04, 2.04, 2.04, 0.32]}"/>
+            <xacro:property name="k_q_p_default" value="${[624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 1020.0, 255.0, 204.0, 102.0, 102.0, 102.0, 16.0]}"/>
+            <xacro:property name="k_qd_p_default" value="${[5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 10.2, 15.3, 10.2, 2.04, 2.04, 2.04, 0.32]}"/>
             <!-- number of expected elements in the gain string depending on if the robot has an arm. -->
             <xacro:property name="njoints" value="${19 if has_arm else 12}"/>
             <!-- ensure that the values we are working with have the appropriate number of joints.
             If the user passed string is correctly formatted, use that, else fall back to the default values. -->
-            <xacro:property name="k_q_p_used" value="${k_q_p_arg if len(k_q_p_arg) == njoints else default_k_q_p[:njoints]}"/>
-            <xacro:property name="k_qd_p_used" value="${k_qd_p_arg if len(k_qd_p_arg) == njoints else default_k_qd_p[:njoints]}"/>
+            <xacro:property name="k_q_p_validated" value="${k_q_p_arg if len(k_q_p_arg) == njoints else k_q_p_default[:njoints]}"/>
+            <xacro:property name="k_qd_p_validated" value="${k_qd_p_arg if len(k_qd_p_arg) == njoints else k_qd_p_default[:njoints]}"/>
 
             <!-- Add the legs, setting the initial gain values to the appropriate values. -->
-            <xacro:leg front_or_rear="front" left_or_right="left"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[:3]}"   k_qd_p_list="${k_qd_p_used[:3]}"/>
-            <xacro:leg front_or_rear="front" left_or_right="right" tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[3:6]}"  k_qd_p_list="${k_qd_p_used[3:6]}"/>
-            <xacro:leg front_or_rear="rear"  left_or_right="left"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[6:9]}"  k_qd_p_list="${k_qd_p_used[6:9]}"/>
-            <xacro:leg front_or_rear="rear"  left_or_right="right" tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[9:12]}" k_qd_p_list="${k_qd_p_used[9:12]}"/>
+            <xacro:leg front_or_rear="front" left_or_right="left"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[:3]}"   k_qd_p_list="${k_qd_p_validated[:3]}"/>
+            <xacro:leg front_or_rear="front" left_or_right="right" tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[3:6]}"  k_qd_p_list="${k_qd_p_validated[3:6]}"/>
+            <xacro:leg front_or_rear="rear"  left_or_right="left"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[6:9]}"  k_qd_p_list="${k_qd_p_validated[6:9]}"/>
+            <xacro:leg front_or_rear="rear"  left_or_right="right" tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[9:12]}" k_qd_p_list="${k_qd_p_validated[9:12]}"/>
 
             <!-- Add the arm + the gripper if the robot has an arm, again setting the initial gain values to the appropriate values.  -->
             <xacro:if value="${has_arm}">
-                <xacro:arm tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[12:]}" k_qd_p_list="${k_qd_p_used[12:]}"/>
+                <xacro:arm tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[12:]}" k_qd_p_list="${k_qd_p_validated[12:]}"/>
             </xacro:if>
         </ros2_control>
     </xacro:macro>
