@@ -93,12 +93,11 @@
             <!-- parse the sting seperated input value into a list for easier operations. -->
             <xacro:property name="k_q_p_arg" value="${[float(i) for i in k_q_p.split()]}"/>
             <xacro:property name="k_qd_p_arg" value="${[float(i) for i in k_qd_p.split()]}"/>
+            <!-- default gain values provided by BD -->
             <xacro:property name="default_k_q_p" value="${[624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 624.0, 936.0, 286.0, 1020.0, 255.0, 204.0, 102.0, 102.0, 102.0, 16.0]}"/>
             <xacro:property name="default_k_qd_p" value="${[5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 5.20, 5.20, 2.04, 10.2, 15.3, 10.2, 2.04, 2.04, 2.04, 0.32]}"/>
-
             <!-- number of expected elements in the gain string depending on if the robot has an arm. -->
             <xacro:property name="njoints" value="${19 if has_arm else 12}"/>
-
             <!-- ensure that the values we are working with have the appropriate number of joints.
             If the user passed string is correctly formatted, use that, else fall back to the default values. -->
             <xacro:property name="k_q_p_used" value="${k_q_p_arg if len(k_q_p_arg) == njoints else default_k_q_p[:njoints]}"/>
