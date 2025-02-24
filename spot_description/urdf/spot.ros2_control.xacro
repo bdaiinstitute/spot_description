@@ -104,10 +104,10 @@
             <xacro:property name="k_qd_p_used" value="${k_qd_p_arg if len(k_qd_p_arg) == njoints else default_k_qd_p[:njoints]}"/>
 
             <!-- Add the legs, setting the initial gain values to the appropriate values. -->
-            <xacro:leg front_or_rear="front" left_or_right="left"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[:3]}"   k_qd_p_list="${k_qd_p_used[:3]}"/>
-            <xacro:leg front_or_rear="front" left_or_right="right" tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[3:6]}"  k_qd_p_list="${k_qd_p_used[3:6]}"/>
-            <xacro:leg front_or_rear="rear" left_or_right="left"   tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[6:9]}"  k_qd_p_list="${k_qd_p_used[6:9]}"/>
-            <xacro:leg front_or_rear="rear" left_or_right="right"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[9:12]}" k_qd_p_list="${k_qd_p_used[9:12]}"/>
+            <xacro:leg front_or_rear="front" left_or_right="left"  tf_prefix="${tf_prefix}"  k_q_p_list="${k_q_p_used[:3]}"   k_qd_p_list="${k_qd_p_used[:3]}"/>
+            <xacro:leg front_or_rear="front" left_or_right="right" tf_prefix="${tf_prefix}"  k_q_p_list="${k_q_p_used[3:6]}"  k_qd_p_list="${k_qd_p_used[3:6]}"/>
+            <xacro:leg front_or_rear="rear"  left_or_right="left"   tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[6:9]}"  k_qd_p_list="${k_qd_p_used[6:9]}"/>
+            <xacro:leg front_or_rear="rear"  left_or_right="right"  tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_used[9:12]}" k_qd_p_list="${k_qd_p_used[9:12]}"/>
 
             <!-- Add the arm + the gripper if the robot has an arm, again setting the initial gain values to the appropriate values.  -->
             <xacro:if value="${has_arm}">
