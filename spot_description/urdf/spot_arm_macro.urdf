@@ -3,7 +3,8 @@
   <xacro:macro name="load_arm" params="
     tf_prefix
     gripperless:=false
-    custom_gripper_base_link:=''">
+		custom_gripper_base_link:=''
+		include_transmissions=false">
 
     <!-- Useful boolean variable for determining if custom gripper base link should be used in the xacro -->
     <xacro:property name="use_custom_gripper_base_link" value="${gripperless and custom_gripper_base_link!=''}"/>
@@ -49,6 +50,17 @@
       <limit effort="90.9" velocity="10.0" lower="-2.61799387799149441136"
         upper="3.14159265358979311599" />
     </joint>
+		<xacro:if value="${include_transmissions}">
+			<transmission name="${tf_prefix}arm_sh0_tran">
+				<type>transmission_interface/SimpleTransmission</type>
+				<joint name="${tf_prefix}arm_sh0">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</joint>
+				<actuator name="${tf_prefix}arm_sh0_motor">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</actuator>
+			</transmission>
+		</xacro:if>
 
     <link name="${tf_prefix}arm_link_sh1">
       <visual>
@@ -76,6 +88,17 @@
       <limit effort="181.8" velocity="10.0" lower="-3.14159265358979311599"
         upper="0.52359877559829881565" />
     </joint>
+		<xacro:if value="${include_transmissions}">
+			<transmission name="${tf_prefix}arm_sh1_tran">
+				<type>transmission_interface/SimpleTransmission</type>
+				<joint name="${tf_prefix}arm_sh1">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</joint>
+				<actuator name="${tf_prefix}arm_sh1_motor">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</actuator>
+			</transmission>
+		</xacro:if>
 
     <link name="${tf_prefix}arm_link_hr0">
       <visual>
@@ -136,6 +159,17 @@
       <child link="${tf_prefix}arm_link_el0" />
       <limit effort="90.9" velocity="10.0" lower="0" upper="3.14159265358979311599" />
     </joint>
+		<xacro:if value="${include_transmissions}">
+			<transmission name="${tf_prefix}arm_el0_tran">
+				<type>transmission_interface/SimpleTransmission</type>
+				<joint name="${tf_prefix}arm_el0">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</joint>
+				<actuator name="${tf_prefix}arm_el0_motor">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</actuator>
+			</transmission>
+		</xacro:if>
 
     <link name="${tf_prefix}arm_link_el1">
       <visual>
@@ -173,6 +207,17 @@
       <limit effort="30.3" velocity="10.0" lower="-2.79252680319092716487"
         upper="2.79252680319092716487" />
     </joint>
+		<xacro:if value="${include_transmissions}">
+			<transmission name="${tf_prefix}arm_el1_tran">
+				<type>transmission_interface/SimpleTransmission</type>
+				<joint name="${tf_prefix}arm_el1">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</joint>
+				<actuator name="${tf_prefix}arm_el1_motor">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</actuator>
+			</transmission>
+		</xacro:if>
 
     <link name="${tf_prefix}arm_link_wr0">
       <visual>
@@ -205,6 +250,17 @@
       <limit effort="30.3" velocity="10.0" lower="-1.83259571459404613236"
         upper="1.83259571459404613236" />
     </joint>
+		<xacro:if value="${include_transmissions}">
+			<transmission name="${tf_prefix}arm_wr0_tran">
+				<type>transmission_interface/SimpleTransmission</type>
+				<joint name="${tf_prefix}arm_wr0">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</joint>
+				<actuator name="${tf_prefix}arm_wr0_motor">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</actuator>
+			</transmission>
+		</xacro:if>
 
     <xacro:if value="${gripperless}">
       <xacro:unless value="${use_custom_gripper_base_link}">
@@ -269,6 +325,17 @@
       <limit effort="30.3" velocity="10.0" lower="-2.87979326579064354163"
         upper="2.87979326579064354163" />
     </joint>
+		<xacro:if value="${include_transmissions}">
+			<transmission name="${tf_prefix}arm_wr1_tran">
+				<type>transmission_interface/SimpleTransmission</type>
+				<joint name="${tf_prefix}arm_wr1">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</joint>
+				<actuator name="${tf_prefix}arm_wr1_motor">
+					<hardwareInterface>EffortJointInterface</hardwareInterface>
+				</actuator>
+			</transmission>
+		</xacro:if>
 
     <!-- Finger joint and link shouldn't be included if gripperless -->
     <xacro:unless value="${gripperless}">
@@ -327,6 +394,17 @@
         <child link="${tf_prefix}arm_link_fngr" />
         <limit effort="15.32" velocity="10.0" lower="-1.57" upper="0.0" />
       </joint>
+			<xacro:if value="${include_transmissions}">
+				<transmission name="${tf_prefix}arm_f1x_tran">
+					<type>transmission_interface/SimpleTransmission</type>
+					<joint name="${tf_prefix}arm_f1x">
+						<hardwareInterface>EffortJointInterface</hardwareInterface>
+					</joint>
+					<actuator name="${tf_prefix}arm_f1x_motor">
+						<hardwareInterface>EffortJointInterface</hardwareInterface>
+					</actuator>
+				</transmission>
+			</xacro:if>
     </xacro:unless>
   </xacro:macro>
 </robot>

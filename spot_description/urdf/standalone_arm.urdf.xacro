@@ -8,9 +8,13 @@
 
   <!-- Parameters -->
   <xacro:arg name="tf_prefix" default="" />
+  <xacro:arg name="include_transmissions" default="false" />
+  <xacro:arg name="gripperless" default="false" />
 
   <!-- Load arm -->
   <xacro:load_arm
-    tf_prefix="$(arg tf_prefix)" />
+		tf_prefix="$(arg tf_prefix)" 
+		gripperless="$(arg gripperless)" 
+		include_transmissions="$(arg include_transmissions)"/>
 
 </robot>
