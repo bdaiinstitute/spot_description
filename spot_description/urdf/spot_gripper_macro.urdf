@@ -3,8 +3,6 @@
   <xacro:macro name="load_gripper" params="
 		tf_prefix
 		include_transmissions:=false">
-		<!-- <link name="${tf_prefix}arm_link_wr1"> -->
-		<!-- </link> -->
 
       <link name="${tf_prefix}arm_link_wr1">
         <visual>
