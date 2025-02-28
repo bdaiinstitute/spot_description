@@ -6,7 +6,8 @@
     feet:=false
     gripperless:=false
     custom_gripper_base_link:=''
-    tf_prefix">
+			tf_prefix
+			include_transmissions=false">
 
         <link name="${tf_prefix}body">
             <visual>
@@ -86,6 +87,17 @@
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
                 upper="0.78539816339744827899" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}front_left_hip_x_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}front_left_hip_x">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}front_left_hip_x_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+        </xacro:if>
         <link name="${tf_prefix}front_left_upper_leg">
             <visual>
                 <geometry>
@@ -115,6 +127,17 @@
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}front_left_hip_y_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}front_left_hip_y">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}front_left_hip_y_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}front_left_lower_leg">
             <visual>
                 <geometry>
@@ -142,6 +165,8 @@
                     iyz="0.0" izz="0.0001493402097647426" />
             </inertial>
         </link>
+				<frame link="${tf_prefix}front_left_lower_leg" name="${tf_prefix}front_left_foot_center" xyz="0.0 0.0 -0.3365"/>
+
         <joint name="${tf_prefix}front_left_knee" type="revolute">
             <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
             <axis xyz="0 1 0" />
@@ -149,6 +174,17 @@
             <child link="${tf_prefix}front_left_lower_leg" />
             <limit effort="115" velocity="12.0" lower="-2.7929" upper="-0.254801" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}front_left_knee_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}front_left_knee">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}front_left_knee_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}front_right_hip">
             <visual>
                 <geometry>
@@ -172,6 +208,17 @@
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
                 upper="0.78539816339744827899" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}front_right_hip_x_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}front_right_hip_x">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}front_right_hip_x_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}front_right_upper_leg">
             <visual>
                 <geometry>
@@ -201,6 +248,17 @@
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}front_right_hip_y_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}front_right_hip_y">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}front_right_hip_y_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}front_right_lower_leg">
             <visual>
                 <geometry>
@@ -228,6 +286,8 @@
                     iyz="0.0" izz="0.0001493402097647426" />
             </inertial>
         </link>
+				<frame link="${tf_prefix}front_right_lower_leg" name="${tf_prefix}front_right_foot_center" xyz="0.0 0.0 -0.3365"/>
+
         <joint name="${tf_prefix}front_right_knee" type="revolute">
             <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
             <axis xyz="0 1 0" />
@@ -235,6 +295,17 @@
             <child link="${tf_prefix}front_right_lower_leg" />
             <limit effort="115" velocity="12.0" lower="-2.7929" upper="-0.247563" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}front_right_knee_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}front_right_knee">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}front_right_knee_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}rear_left_hip">
             <visual>
                 <geometry>
@@ -258,6 +329,17 @@
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
                 upper="0.78539816339744827899" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}rear_left_hip_x_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}rear_left_hip_x">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}rear_left_hip_x_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}rear_left_upper_leg">
             <visual>
                 <geometry>
@@ -287,6 +369,17 @@
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}rear_left_hip_y_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}rear_left_hip_y">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}rear_left_hip_y_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}rear_left_lower_leg">
             <visual>
                 <geometry>
@@ -314,6 +407,8 @@
                     iyz="0.0" izz="0.0001493402097647426" />
             </inertial>
         </link>
+				<frame link="${tf_prefix}rear_left_lower_leg" name="${tf_prefix}rear_left_foot_center" xyz="0.0 0.0 -0.3365"/>
+
         <joint name="${tf_prefix}rear_left_knee" type="revolute">
             <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
             <axis xyz="0 1 0" />
@@ -321,6 +416,17 @@
             <child link="${tf_prefix}rear_left_lower_leg" />
             <limit effort="115" velocity="12.0" lower="-2.7929" upper="-0.267153" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}rear_left_knee_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}rear_left_knee">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}rear_left_knee_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}rear_right_hip">
             <visual>
                 <geometry>
@@ -344,6 +450,17 @@
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
                 upper="0.78539816339744827899" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}rear_right_hip_x_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}rear_right_hip_x">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}rear_right_hip_x_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}rear_right_upper_leg">
             <visual>
                 <geometry>
@@ -373,6 +490,17 @@
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}rear_right_hip_y_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}rear_right_hip_y">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}rear_right_hip_y_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+				</xacro:if>
         <link name="${tf_prefix}rear_right_lower_leg">
             <visual>
                 <geometry>
@@ -400,6 +528,8 @@
                     iyz="0.0" izz="0.0001493402097647426" />
             </inertial>
         </link>
+				<frame link="${tf_prefix}rear_right_lower_leg" name="${tf_prefix}rear_right_foot_center" xyz="0.0 0.0 -0.3365"/>
+
         <joint name="${tf_prefix}rear_right_knee" type="revolute">
             <origin xyz="0.025 0.000 -0.3205" rpy="0 0 0" />
             <axis xyz="0 1 0" />
@@ -407,6 +537,17 @@
             <child link="${tf_prefix}rear_right_lower_leg" />
             <limit effort="115" velocity="12.0" lower="-2.7929" upper="-0.257725" />
         </joint>
+        <xacro:if value="${include_transmissions}">
+					<transmission name="${tf_prefix}rear_right_knee_tran">
+						<type>transmission_interface/SimpleTransmission</type>
+						<joint name="${tf_prefix}rear_right_knee">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</joint>
+						<actuator name="${tf_prefix}rear_right_knee_motor">
+							<hardwareInterface>EffortJointInterface</hardwareInterface>
+						</actuator>
+					</transmission>
+        </xacro:if>
 
         <!-- Standard accessories. -->
         <xacro:include filename="$(find spot_description)/urdf/accessories.urdf.xacro" />

@@ -31,13 +31,15 @@
   <xacro:arg name="leasing" default="direct" />
   <xacro:arg name="k_q_p" default="" />
   <xacro:arg name="k_qd_p" default="" />
+	<xacro:arg name="include_transmissions" default="false" />^M
 
   <!-- Load Spot -->
   <xacro:load_spot
     arm="$(arg arm)"
     feet="$(arg feet)"
     tf_prefix="$(arg tf_prefix)" 
-    gripperless="$(arg gripperless)"/>
+    gripperless="$(arg gripperless)"
+	  include_transmissions="$(arg include_transmissions)" />
 
   <!-- Adding the ROS 2 control tags -->
   <xacro:if value="$(arg add_ros2_control_tag)">
