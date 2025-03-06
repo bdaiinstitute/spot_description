@@ -91,7 +91,7 @@ def generate_launch_description() -> launch.LaunchDescription:
                 executable="rviz2",
                 name="rviz2",
                 output="screen",
-                arguments=["-d" + default_rviz2_path],
+                arguments=["-d", LaunchConfiguration("rvizconfig")],
             ),
         ]
     )
