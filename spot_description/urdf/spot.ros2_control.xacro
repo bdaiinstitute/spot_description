@@ -112,7 +112,7 @@
             <xacro:if value="${has_arm}">
                 <xacro:arm tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[12:]}" k_qd_p_list="${k_qd_p_validated[12:]}"/>
             </xacro:if>
-            <sensor name="{tf_prefix}imu_sensor" tf_prefix="${tf_prefix}">
+            <sensor name="${tf_prefix}imu_sensor">
                 <state_interface name="orientation.x"/>
                 <state_interface name="orientation.y"/>
                 <state_interface name="orientation.z"/>
