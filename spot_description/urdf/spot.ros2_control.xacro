@@ -125,6 +125,12 @@
                 <state_interface name="linear_acceleration.z"/>
                 <param name="frame_id">imu_link</param>
             </sensor>
+            <sensor name="${tf_prefix}foot_sensor">
+                <state_interface name="foot_state.front.left"/>
+                <state_interface name="foot_state.front.right"/>
+                <state_interface name="foot_state.back.left"/>
+                <state_interface name="foot_state.back.right"/>
+            </sensor>
         </ros2_control>
     </xacro:macro>
 
