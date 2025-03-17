@@ -131,6 +131,24 @@
                 <state_interface name="foot_state.back.left"/>
                 <state_interface name="foot_state.back.right"/>
             </sensor>
+            <sensor name="${tf_prefix}odom_tform_body">
+                <state_interface name="position.x"/>
+                <state_interface name="position.y"/>
+                <state_interface name="position.z"/>
+                <state_interface name="rotation.x"/>
+                <state_interface name="rotation.y"/>
+                <state_interface name="rotation.z"/>
+                <state_interface name="rotation.w"/>
+            </sensor>
+            <sensor name="${tf_prefix}vision_tform_body">
+                <state_interface name="position.x"/>
+                <state_interface name="position.y"/>
+                <state_interface name="position.z"/>
+                <state_interface name="rotation.x"/>
+                <state_interface name="rotation.y"/>
+                <state_interface name="rotation.z"/>
+                <state_interface name="rotation.w"/>
+            </sensor>
         </ros2_control>
     </xacro:macro>
 
