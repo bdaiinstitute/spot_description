@@ -159,6 +159,14 @@
                 <state_interface name="foot_state.back.right"/>
             </sensor>
             <xacro:pose_sensor sensor_name="${tf_prefix}odom_t_body"/>
+            <sensor name="${tf_prefix}odom_twist_body">
+                <state_interface name="linear.x"/>
+                <state_interface name="linear.y"/>
+                <state_interface name="linear.z">
+                <state_interface name="angular.x"/>
+                <state_interface name="angular.y"/>
+                <state_interface name="angular.z"/>
+            </sensor>
             <xacro:pose_sensor sensor_name="${tf_prefix}vision_t_body"/>
         </ros2_control>
     </xacro:macro>
