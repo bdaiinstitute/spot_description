@@ -68,7 +68,7 @@
 
     </xacro:macro>
 
-    <!-- NOTE: this sets initial values to an identity transform so that mock hardware mode uses this -->
+    <!-- NOTE: this sets initial values to an identity transform so that mock hardware uses this instead of the default NAN -->
     <xacro:macro name="pose_sensor" params="sensor_name">
         <sensor name="${sensor_name}">
             <state_interface name="position.x">
