@@ -68,6 +68,33 @@
 
     </xacro:macro>
 
+    <!-- NOTE: this sets initial values to an identity transform so that mock hardware uses this instead of the default NAN -->
+    <xacro:macro name="pose_sensor" params="sensor_name">
+        <sensor name="${sensor_name}">
+            <state_interface name="position.x">
+                <param name="initial_value">1.0</param>
+            </state_interface>
+            <state_interface name="position.y">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="position.z">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="orientation.x">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="orientation.y">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="orientation.z">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="orientation.w">
+                <param name="initial_value">1.0</param>
+            </state_interface>
+        </sensor>
+    </xacro:macro>
+
     <xacro:macro name="spot_ros2_control" params="interface_type has_arm leasing hostname port certificate username password tf_prefix k_q_p k_qd_p">
         <!-- Currently implements a simple system interface that covers all joints of the robot -->
         <ros2_control name="SpotSystem" type="system">
@@ -131,24 +158,8 @@
                 <state_interface name="foot_state.back.left"/>
                 <state_interface name="foot_state.back.right"/>
             </sensor>
-            <sensor name="${tf_prefix}odom_tform_body">
-                <state_interface name="position.x"/>
-                <state_interface name="position.y"/>
-                <state_interface name="position.z"/>
-                <state_interface name="rotation.x"/>
-                <state_interface name="rotation.y"/>
-                <state_interface name="rotation.z"/>
-                <state_interface name="rotation.w"/>
-            </sensor>
-            <sensor name="${tf_prefix}vision_tform_body">
-                <state_interface name="position.x"/>
-                <state_interface name="position.y"/>
-                <state_interface name="position.z"/>
-                <state_interface name="rotation.x"/>
-                <state_interface name="rotation.y"/>
-                <state_interface name="rotation.z"/>
-                <state_interface name="rotation.w"/>
-            </sensor>
+            <xacro:pose_sensor sensor_name="${tf_prefix}odom_t_body"/>
+            <xacro:pose_sensor sensor_name="${tf_prefix}vision_t_body"/>
         </ros2_control>
     </xacro:macro>
 
