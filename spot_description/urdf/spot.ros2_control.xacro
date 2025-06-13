@@ -2,9 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:macro name="ros2_control_joint"
-        params="joint_name position_min:=0.0 position_max:=0.0 velocity_max effort_max k_q_p k_qd_p">
+        params="joint_name position_min:=0.0 position_max:=0.0 position_init:=0.0 velocity_max effort_max k_q_p k_qd_p">
         <joint name="${joint_name}">
-            <state_interface name="position" />
+            <state_interface name="position">
+              <param name="initial_value">${position_init}</param>
+            </state_interface>
             <state_interface name="velocity" />
             <state_interface name="effort" />
 
@@ -32,39 +34,42 @@
     <!-- TODO We do not know the real velocity bounds for Spot. -->
     <xacro:macro name="leg" params="left_or_right front_or_rear tf_prefix k_q_p_list k_qd_p_list">
         <!-- it's assumed that k_q_p_list and k_qd_list have 3 elements in them, where index 0 corresponds to hip x, 1 to hip y, and 2 to knee.-->
+        <xacro:property name="front_back_sign" value="${1 if front_or_rear == 'front' else -1}"/>
+        <xacro:property name="left_right_sign" value="${1 if left_or_right == 'left' else -1}"/>
+
         <xacro:ros2_control_joint joint_name="${tf_prefix}${front_or_rear}_${left_or_right}_hip_x"
-            position_min="-0.785" position_max="0.785" velocity_max="100" effort_max="45" k_q_p="${k_q_p_list[0]}" k_qd_p="${k_qd_p_list[0]}" />
+          position_min="-0.785" position_max="0.785" position_init="${0.1*left_right_sign}" velocity_max="100" effort_max="45" k_q_p="${k_q_p_list[0]}" k_qd_p="${k_qd_p_list[0]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}${front_or_rear}_${left_or_right}_hip_y"
-            position_min="-0.899" position_max="2.295" velocity_max="100" effort_max="45" k_q_p="${k_q_p_list[1]}" k_qd_p="${k_qd_p_list[1]}" />
+            position_min="-0.899" position_max="2.295" position_init="0.7" velocity_max="100" effort_max="45" k_q_p="${k_q_p_list[1]}" k_qd_p="${k_qd_p_list[1]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}${front_or_rear}_${left_or_right}_knee"
-            position_min="-2.793" position_max="-0.255" velocity_max="100" effort_max="115" k_q_p="${k_q_p_list[2]}" k_qd_p="${k_qd_p_list[2]}" />
+            position_min="-2.793" position_max="-0.255" position_init="-1.5" velocity_max="100" effort_max="115" k_q_p="${k_q_p_list[2]}" k_qd_p="${k_qd_p_list[2]}" />
     </xacro:macro>
 
     <xacro:macro name="arm" params="tf_prefix k_q_p_list k_qd_p_list">
         <!-- it's assumed that k_q_p_list and k_qd_list have 7 elements in them, going in order from shoulder to finger.-->
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_sh0"
-            position_min="-2.168" position_max="3.142" velocity_max="100" effort_max="90.9" k_q_p="${k_q_p_list[0]}" k_qd_p="${k_qd_p_list[0]}" />
+            position_min="-2.168" position_max="3.142" position_init="0.0" velocity_max="100" effort_max="90.9" k_q_p="${k_q_p_list[0]}" k_qd_p="${k_qd_p_list[0]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_sh1"
-            position_min="-3.142" position_max="0.524" velocity_max="100" effort_max="181.8" k_q_p="${k_q_p_list[1]}" k_qd_p="${k_qd_p_list[1]}" />
+            position_min="-3.142" position_max="0.524" position_init="-2.8" velocity_max="100" effort_max="181.8" k_q_p="${k_q_p_list[1]}" k_qd_p="${k_qd_p_list[1]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_el0"
-            position_min="0.000" position_max="3.142" velocity_max="100" effort_max="90.9" k_q_p="${k_q_p_list[2]}" k_qd_p="${k_qd_p_list[2]}" />
+            position_min="0.000" position_max="3.142" position_init="2.8" velocity_max="100" effort_max="90.9" k_q_p="${k_q_p_list[2]}" k_qd_p="${k_qd_p_list[2]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_el1"
-            position_min="-2.793" position_max="2.793" velocity_max="100" effort_max="30.3" k_q_p="${k_q_p_list[3]}" k_qd_p="${k_qd_p_list[3]}" />
+            position_min="-2.793" position_max="2.793" position_init="0.0" velocity_max="100" effort_max="30.3" k_q_p="${k_q_p_list[3]}" k_qd_p="${k_qd_p_list[3]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_wr0"
-            position_min="-1.833" position_max="1.833" velocity_max="100" effort_max="30.3" k_q_p="${k_q_p_list[4]}" k_qd_p="${k_qd_p_list[4]}" />
+            position_min="-1.833" position_max="1.833" position_init="0.0" velocity_max="100" effort_max="30.3" k_q_p="${k_q_p_list[4]}" k_qd_p="${k_qd_p_list[4]}" />
 
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_wr1"
-            position_min="-2.880" position_max="2.880" velocity_max="100" effort_max="30.3" k_q_p="${k_q_p_list[5]}" k_qd_p="${k_qd_p_list[5]}" />
+            position_min="-2.880" position_max="2.880" position_init="0.0" velocity_max="100" effort_max="30.3" k_q_p="${k_q_p_list[5]}" k_qd_p="${k_qd_p_list[5]}" />
 
         <!-- Note: this would have to be modified if we want to run as gripperless -->
         <xacro:ros2_control_joint joint_name="${tf_prefix}arm_f1x"
-            position_min="-1.570" position_max="0.000" velocity_max="100" effort_max="15.3" k_q_p="${k_q_p_list[6]}" k_qd_p="${k_qd_p_list[6]}" />
+            position_min="-1.570" position_max="0.000" position_init="0.0" velocity_max="100" effort_max="15.3" k_q_p="${k_q_p_list[6]}" k_qd_p="${k_qd_p_list[6]}" />
 
     </xacro:macro>
 
@@ -140,16 +145,36 @@
                 <xacro:arm tf_prefix="${tf_prefix}" k_q_p_list="${k_q_p_validated[12:]}" k_qd_p_list="${k_qd_p_validated[12:]}"/>
             </xacro:if>
             <sensor name="${tf_prefix}imu_sensor">
-                <state_interface name="orientation.x"/>
-                <state_interface name="orientation.y"/>
-                <state_interface name="orientation.z"/>
-                <state_interface name="orientation.w"/>
-                <state_interface name="angular_velocity.x"/>
-                <state_interface name="angular_velocity.y"/>
-                <state_interface name="angular_velocity.z"/>
-                <state_interface name="linear_acceleration.x"/>
-                <state_interface name="linear_acceleration.y"/>
-                <state_interface name="linear_acceleration.z"/>
+                <state_interface name="orientation.x">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="orientation.y">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="orientation.z">
+                  <param name="initial_value">1.0</param>
+                </state_interface>
+                <state_interface name="orientation.w">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="angular_velocity.x">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="angular_velocity.y">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="angular_velocity.z">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="linear_acceleration.x">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="linear_acceleration.y">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="linear_acceleration.z">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
                 <param name="frame_id">imu_link</param>
             </sensor>
             <sensor name="${tf_prefix}foot_sensor">
@@ -160,12 +185,24 @@
             </sensor>
             <xacro:pose_sensor sensor_name="${tf_prefix}odom_t_body"/>
             <sensor name="${tf_prefix}odom_twist_body">
-                <state_interface name="linear.x"/>
-                <state_interface name="linear.y"/>
-                <state_interface name="linear.z"/>
-                <state_interface name="angular.x"/>
-                <state_interface name="angular.y"/>
-                <state_interface name="angular.z"/>
+                <state_interface name="linear.x">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="linear.y">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="linear.z">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="angular.x">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="angular.y">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="angular.z">
+                  <param name="initial_value">0.0</param>
+                </state_interface>
             </sensor>
             <xacro:pose_sensor sensor_name="${tf_prefix}vision_t_body"/>
         </ros2_control>
