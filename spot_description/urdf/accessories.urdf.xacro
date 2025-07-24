@@ -3,25 +3,25 @@
 
   <xacro:if value="$(optenv SPOT_PACK 0)">
     <joint name="pack_mount_joint" type="fixed">
-      <parent link="base_link"/>
-      <child link="pack_mount"/>
-      <origin xyz="-0.019986 0 0.093662" rpy="0 0 0"/>
+      <parent link="base_link" />
+      <child link="pack_mount" />
+      <origin xyz="-0.019986 0 0.093662" rpy="0 0 0" />
     </joint>
 
     <link name="pack_mount">
       <visual>
         <geometry>
-          <mesh filename="package://spot_description/meshes/base/visual/pack_top.obj"/>
+          <mesh filename="package://spot_description/meshes/base/visual/pack_top.obj" />
         </geometry>
       </visual>
       <visual>
         <geometry>
-          <mesh filename="package://spot_description/meshes/base/visual/pack_body.obj"/>
+          <mesh filename="package://spot_description/meshes/base/visual/pack_body.obj" />
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://spot_description/meshes/base/visual/pack_body.obj"/>
+          <mesh filename="package://spot_description/meshes/base/visual/pack_body.obj" />
         </geometry>
       </collision>
     </link>
@@ -29,20 +29,21 @@
 
   <xacro:if value="$(optenv SPOT_LIDAR_MOUNT 0)">
     <joint name="lidar_mount_joint" type="fixed">
-      <parent link="pack_mount"/>
-      <child link="lidar_mount"/>
-      <origin xyz="0.015 0 0.149285" rpy="0 0 0"/>
+      <parent link="pack_mount" />
+      <child link="lidar_mount" />
+      <origin xyz="0.015 0 0.149285" rpy="0 0 0" />
     </joint>
 
     <link name="lidar_mount">
       <visual>
         <geometry>
-          <mesh filename="package://spot_description/meshes/base/visual/lidar_mount.obj"/>
+          <mesh filename="package://spot_description/meshes/base/visual/lidar_mount.obj" />
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://spot_description/meshes/base/collision/lidar_mount_collision.stl"/>
+          <mesh
+            filename="package://spot_description/meshes/base/collision/lidar_mount_collision.stl" />
         </geometry>
       </collision>
     </link>
@@ -58,14 +59,16 @@
       <link name="velodyne_cage">
         <visual>
           <geometry>
-            <mesh filename="package://spot_description/meshes/base/collision/velodyne_cage.stl" scale="0.001 0.001 0.001" />
+            <mesh filename="package://spot_description/meshes/base/collision/velodyne_cage.stl"
+              scale="0.001 0.001 0.001" />
           </geometry>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <material name="black" />
         </visual>
         <collision>
           <geometry>
-            <mesh filename="package://spot_description/meshes/base/collision/velodyne_cage.stl" scale="0.001 0.001 0.001" />
+            <mesh filename="package://spot_description/meshes/base/collision/velodyne_cage.stl"
+              scale="0.001 0.001 0.001" />
           </geometry>
           <origin xyz="0 0 0" rpy="0 0 0" />
         </collision>
@@ -76,5 +79,51 @@
         <origin xyz="$(optenv SPOT_VELODYNE_XYZ 0 0 0)" rpy="$(optenv SPOT_VELODYNE_RPY 0 0 0)" />
       </joint>
     </xacro:if>
+  </xacro:if>
+
+  <xacro:if value="$(optenv SPOT_GRIPPER_SIDE_REALSENSE_MOUNT 0)">
+    <joint name="gripper_side_realsense_joint" type="fixed">
+      <parent link="arm_link_wr1" />
+      <child link="gripper_side_realsense_mount" />
+      <origin xyz="0.09 0.0 -0.034" rpy="0 0 ${pi / 2}" />
+    </joint>
+
+    <link name="gripper_side_realsense_mount">
+      <visual>
+        <geometry>
+          <mesh
+            filename="package://spot_description/meshes/arm/visual/arm_link_gripper_side_realsense_mount.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh
+            filename="package://spot_description/meshes/arm/visual/arm_link_gripper_side_realsense_mount.obj" />
+        </geometry>
+      </collision>
+    </link>
+  </xacro:if>
+
+  <xacro:if value="$(optenv SPOT_JAW_REALSENSE_MOUNT 0)">
+    <joint name="jaw_realsense_joint" type="fixed">
+      <parent link="arm_link_wr1" />
+      <child link="jaw_realsense_mount" />
+      <origin xyz="0.09 0.0 -0.034" rpy="0 0 ${pi / 2}" />
+    </joint>
+
+    <link name="jaw_realsense_mount">
+      <visual>
+        <geometry>
+          <mesh
+            filename="package://spot_description/meshes/arm/visual/arm_link_lower_jaw_realsense_mount.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh
+            filename="package://spot_description/meshes/arm/visual/arm_link_lower_jaw_realsense_mount.obj" />
+        </geometry>
+      </collision>
+    </link>
   </xacro:if>
 </robot>
